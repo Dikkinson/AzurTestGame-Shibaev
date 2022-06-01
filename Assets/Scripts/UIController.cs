@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject mainMenuPanel;
-    public GameObject gamePanel;
-    public GameObject victoryPanel;
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject victoryPanel;
     private void Awake()
     {
         GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
     }
-
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
     private void GameManager_OnGameStateChanged(GameState state)
     {
         switch (state)

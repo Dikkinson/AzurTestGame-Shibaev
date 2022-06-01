@@ -24,7 +24,6 @@ public class MainMenuGuide : MonoBehaviour
             StringBuilder strBuilder = new StringBuilder();
             for (int currentDotPosition = -segmentsCount; currentDotPosition < segmentsCount; currentDotPosition++)
             {
-                Debug.Log("Test");
                 strBuilder.Append('<');
                 for (int i = 0; i <= segmentsCount; i++)
                 {

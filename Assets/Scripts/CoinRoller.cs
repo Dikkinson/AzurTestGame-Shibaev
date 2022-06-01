@@ -14,4 +14,8 @@ public class CoinRoller : MonoBehaviour
         transform.DOMoveY(bounceDuration, 1).SetLoops(-1,LoopType.Yoyo);
         transform.DORotate(new Vector3(0, 360, 0), rotateDuration, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
     }
+    private void OnDestroy()
+    {
+        DOTween.Kill(transform);
+    }
 }

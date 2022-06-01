@@ -9,16 +9,19 @@ public class CamerasController : MonoBehaviour
     {
         GameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
     }
-
+    private void OnDisable()
+    {
+        GameManager.OnGameStateChanged -= GameManager_OnGameStateChanged;
+    }
     private void GameManager_OnGameStateChanged(GameState state)
     {
         ChangeCamera(state);
     }
-
     private void ChangeCamera(GameState state)
     {
         foreach (var cam in cameras)
         {
+            Debug.Log(cam);
             cam.SetActive(false);
         }
         cameras[(int)state].SetActive(true);

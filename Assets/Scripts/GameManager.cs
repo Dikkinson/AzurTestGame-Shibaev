@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -11,18 +12,19 @@ public class GameManager : MonoBehaviour
 {
     public static event Action<GameState> OnGameStateChanged;
     private GameState _gameState;
-    public static GameManager instance;
+    public static GameManager i;
+    [SerializeField] private ParticleSystem firework;
     private void Awake()
     {
-        if (!instance)
+        if (!i)
         {
-            instance = this;
+            i = this;
         }else
         {
             Destroy(gameObject);
         }
     }
-    public GameState State 
+    public GameState State
     { 
         get
         {
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
                 case GameState.Game:
                     break;
                 case GameState.Victory:
+                    firework.Play();
                     break;
                 default:
                     break;
@@ -45,12 +48,6 @@ public class GameManager : MonoBehaviour
             OnGameStateChanged?.Invoke(_gameState);
         }
     }
-    void Start()
-    {
-        State = GameState.Start;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (State == GameState.Start)
@@ -60,5 +57,9 @@ public class GameManager : MonoBehaviour
                 State = GameState.Game;
             }
         }
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }
